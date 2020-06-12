@@ -98,7 +98,7 @@ def board_to_planes(board):
     # board prints conveniently as a string, so __str__ is called and saved. Could be done with FEN too
     board_str = board.__str__()
     board_arr = np.asarray([line.split(" ") for line in board_str.split("\n")])
-    plane_repr = np.full((12, 8, 8,), 0)
+    plane_repr = np.full((12, 8, 8,), 0, dtype=np.uint8)
     for i, piece in enumerate(pieces):
         plane_repr[i][board_arr == piece] = 1
     return plane_repr
@@ -125,7 +125,7 @@ def board_to_aux_planes(board):
     # split by space: piece positions, turn, castling rights, en passant position, no-progress half moves, full moves
     wb, castling, enpassant, halfmoves, fullmoves = board.fen().split(" ")[1:]
     plane_count = 0
-    aux_planes = np.full((7, 8, 8), 0)
+    aux_planes = np.full((7, 8, 8), 0, dtype=np.uint8)
 
     if wb == "b":
         aux_planes[plane_count] = 1
