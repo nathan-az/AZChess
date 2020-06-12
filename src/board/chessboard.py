@@ -7,7 +7,6 @@ pieces = "KQRBNPkqrbnp"
 piece_indices = {x: i for i, x in enumerate(pieces)}
 castle_rights = "KQkq"
 castle_indices = {x: i for i, x in enumerate(castle_rights)}
-Winner = enum.Enum("Winner", "white black draw")
 files = "abcdefgh"
 file_indices = {x: i for i, x in enumerate(files)}
 
@@ -19,7 +18,7 @@ class Chessboard:
     Attributes:
     board -- (chess.Board) stores board state, python-chess object
     num_half_moves -- (int) counts number of half-moves for move threshold
-    winner -- (Winner) winner of game, uses enum object
+    winner -- (str) winner of game, uses enum object
     resigned -- (boolean) whether loser resigned
     result -- (str) string encoding of result, ("1-0", "0-1", "1/2-1/2")
     """
