@@ -1,5 +1,4 @@
 import chess
-import enum
 import numpy as np
 
 # pieces as per FEN standard, ordered decreasing by value
@@ -37,6 +36,54 @@ class Chessboard:
         self.resigned = False
         self.result = None
 
+
+def flip_piece_planes(planes, make_copy=False):
+    """
+    Flips piece position planes (turns black to white) for NN input
+
+    Keyword arguments:
+    planes -- (numpy.ndarray) piece position planes of shape (12,8,8)
+    """
+
+    arr = planes
+    if make_copy:
+        arr = planes.copy()
+    arr = arr.flip(1)
+    for i in range(planes.shape[0] // 2):
+        swap_array_elements(arr, i, i + 6)
+    return arr
+
+
+def flip_aux_planes(planes, make_copy=False):
+    """
+    Flips auxiliary planes
+
+    Keyword arguments:
+    planes -- (numpy.ndarray) auxiliary position planes of shape (7, 8, 8)
+    make_copy -- (boolean) decide if you prefer to make a copy rather than changing in-place. Might remove later
+    """
+    # first plane is all 0 or 1 based on whose turn it is
+    # if we flip, we can turn to bool, flip bool, turn back to int
+    arr = planes
+    if make_copy:
+        arr = planes.copy()
+    arr[0] = (~(arr.astype(bool))).arr(np.uint8)
+
+    # we swap Queen and King black/white planes so the castling rights for black and white are swapped accordingly
+    for i in range(1, 3):
+        swap_array_elements(arr, i, i+2)
+
+    # we flip the boards for all the castling rights planes, as well as the en-passant plane
+    arr[1:6] = np.flip(arr[1:5], 1)
+
+    # note that no change has to be made to the no-progress half-move counter
+    return arr
+
+
+def swap_array_elements(arr, i, j):
+    temp = arr[i].copy()
+    arr[i] = arr[j]
+    arr[j] = temp
 
 def board_to_planes(board):
     """
