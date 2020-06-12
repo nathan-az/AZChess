@@ -21,16 +21,11 @@ For a fantastic project with incredibly strong play, see LeelaChessZero
 which is set apart by its utilisation of distributed training.
 
 #### Complete
-*Completed items incoming...*
+* Complete chessboard representation (2020-06-13)
 
-#### In Progress
+#### To do (*in progress*)
 
-* Complete representation: board flipping, state getters, state history
-
-#### To do
-
-* Complete chessboard representation
-* Design & Implement MCTS class
+* *Design & Implement MCTS class*
 * Build self-play workers
 * Design neural network architecture
 * Decide pipeline 
