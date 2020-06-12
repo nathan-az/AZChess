@@ -23,9 +23,9 @@ which is set apart by its utilisation of distributed training.
 #### Complete
 * Complete chessboard representation (2020-06-13)
 
-#### To do (*in progress*)
+#### To do (**in progress**)
 
-* *Design & Implement MCTS class*
+* **Design & Implement MCTS class**
 * Build self-play workers
 * Design neural network architecture
 * Decide pipeline 
