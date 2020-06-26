@@ -67,7 +67,7 @@ def flip_aux_planes(planes, make_copy=False):
     arr = planes
     if make_copy:
         arr = planes.copy()
-    arr[0] = (~(arr.astype(bool))).arr(np.uint8)
+    arr[0] = (~(arr.astype(bool))).astype(np.float)
 
     # we swap Queen and King black/white planes so the castling rights for black and white are swapped accordingly
     for i in range(1, 3):
@@ -98,7 +98,7 @@ def board_to_planes(board):
     # board prints conveniently as a string, so __str__ is called and saved. Could be done with FEN too
     board_str = board.__str__()
     board_arr = np.asarray([line.split(" ") for line in board_str.split("\n")])
-    plane_repr = np.full((12, 8, 8,), 0, dtype=np.uint8)
+    plane_repr = np.full((12, 8, 8,), 0, dtype=np.float)
     for i, piece in enumerate(pieces):
         plane_repr[i][board_arr == piece] = 1
     return plane_repr
@@ -125,7 +125,7 @@ def board_to_aux_planes(board):
     # split by space: piece positions, turn, castling rights, en passant position, no-progress half moves, full moves
     wb, castling, enpassant, halfmoves, fullmoves = board.fen().split(" ")[1:]
     plane_count = 0
-    aux_planes = np.full((7, 8, 8), 0, dtype=np.uint8)
+    aux_planes = np.full((7, 8, 8), 0, dtype=np.float)
 
     if wb == "b":
         aux_planes[plane_count] = 1
